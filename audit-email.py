@@ -58,16 +58,16 @@ def get_country_abbreviation(country):
         'lagos' : 'NG',
     }
     return abbreviations.get(country, 'misspelled something maybe')
-default_cc = '<kameljs2@gmail.com> \n <ekamel.jlassi@gmail.com> \n <kamel.jlassi@gomycode.co>'
+default_cc = '<kamel.jlassi@gomycode.co>'
 def get_email_cc_list_physical(region): 
     cc_list = {
 
     }
     return cc_list.get(region, 'something not right')
-cc_email = '<kameljs2@gmail.com> \n <ekamel.jlassi@gmail.com> \n <kamel.jlassi@gomycode.co>'
+
 def get_email_cc_list_online(region):
     cc_list = {
-        'tunisia': f'{default_cc}\n <farah.agrebi@gomycode.co> ',
+        'tunisia': [default_cc, '<kameljs2@gmail.com>'],
         'beja' : f'{default_cc} \n <rym.taboubi@gomycode.co> ',
         'manzah' : f'{default_cc}\n <imed.fourati@gomycode.com>',
         'gabes' : f'{default_cc}\n <imen.issaoui@gomycode.com>',
@@ -89,7 +89,7 @@ def get_email_cc_list_online(region):
         'egypt': f'{default_cc} \n  <reham.abdel-sayed@gomycode.co> ',        
         'senegal' : f'{default_cc}\n <nicolas.borrel@gomycode.co> \n  <mariekhane.bob@gomycode.co>',
         }
-    return cc_list.get(region, 'something not right')
+    return cc_list.get(region, ['something not right'])
 
 # get input from user
 answers_str = input('Audit result :')
@@ -108,33 +108,33 @@ score = input('score :')
 instructorName = input('instructor :')
 # check each question and add message for "No" answers
 if answers[0].lower() == 'no':
-    message += 'You did not complete the session. \n'
+    message += '<li>You did not complete the session.</li>'
 
 if answers[1].lower() == 'no':
-    message += 'You did not have Standup with students. \n'
+    message += '<li>You did not have Standup with students. </li>'
 
 if answers[2].lower() == 'no':
-    message += 'You were not interactive during the session. \n'
+    message += '<li>You were not interactive during the session. </li>'
 
 if answers[3].lower() == 'no':
-    message += 'You did not have workshop with the students \n'
+    message += '<li>You did not have workshop with the students. </li>'
 
 if answers[4].lower() == 'no':
-    message += 'You did not have a Q&A with the students \n'
+    message += '<li>You did not have a Q&A with the students. </li>'
 
 if answers[5].lower() == 'no':
-    message += 'You did not have OTO/Checkpoint with students. \n'
+    message += '<li>You did not have OTO/Checkpoint with students. </li>'
 
 if answers[6].lower() == 'no':
     
-    message += 'You did not have Recap + Objective of next session with students. \n'
+    message += '<li>You did not have Recap + Objective of next session with students. </li>'
 
 if answers[7].lower() == 'no':
     
-    message += "You camera was not on. \n"
+    message += "<li>You camera was not on. </li>"
 
 if answers[8].lower() == 'no':
-    message += 'You did not have practice box with the students. \n'
+    message += '<li>You did not have practice box with the students. </li>'
 
 # create email
 HS = get_country_abbreviation(hackerspace)
@@ -143,37 +143,37 @@ object = f'Online Learning Experience QA - {HS} - {instructorName}'
 objectPhysical = f'Online Learning Experience QA - {HS} - {instructorName}'
 warningObject = f'WARNING - Online Learning Experience QA - {HS} - {instructorName}'
 
-simple1 = f'Hello {instructorName}\n \nI am sending you this email following the deep-dive done on your session that occurred on {date}. Overall the session went really well and you are applying all the processes and expected session flow. Congratulations on that. Very much appreciated.  \n\n Compliance score :  {score}% \n\n Best Regards,'
-simple2 = f'Hello {instructorName}\n \nWe would like to congratulate you for the hard work you have shown during your last training session. Following a deep dive into your session that took place on {date} and it was overall good. You’ll find below the comments or issues we bring your attention to: {message}.  \n\n \n\n Compliance score :  {score}% \n\n We hope to see these changes incorporated in your next sessions. Thank you and keep up the good work ! \n\n Best Regards,'
-simple3 = f'Hello {instructorName}\n \nI am sending you this email following the deep-dive done on your session that occurred on {date}. We have noticed as shown in the remarks below that you are not providing an  acceptable experience to our students and that the compliance score is low.\n \n {message} \n\nYour HSM and Country Manager will reach out to you for a full review and remarks on how to run a proper session. \n\n Compliance score :  {score}% \n\n !Best Regards,'
-simple4 = f'Hello {instructorName}\n \nI am sending you this email following the deep-dive done on your session that occurred on {date}. We have noticed as shown in the remarks below that you are not providing an  acceptable experience to our students and that the compliance score is low.\n \n {message} \n\n The session overall was not within our criterias and it is not considered as a valid session for the students \n\n Your HSM and Country Manager will reach out to you for a full review and remarks on how to run a proper session. \n\n Compliance score :  {score}% \n\n !Best Regards,'
+simple1 = f"""Hello {instructorName}, <br> <br> I am sending you this email following the deep-dive done on your session that occurred on {date}. Overall the session went really well and you are applying all the processes and expected session flow. Congratulations on that. Very much appreciated. <br> <br> <b style="color:blue"> Compliance score :  {score}% </b> <br> <br> Best Regards,"""
+simple2 = f"""Hello {instructorName}, <br> <br> We would like to congratulate you for the hard work you have shown during your last training session. Following a deep dive into your session that took place on {date} and it was overall good. You’ll find below the comments or issues we bring your attention to:<br> <ul>{message}</ul> <br> <b style="color:red;"> Compliance score :  {score}% </b> <br> <br> We hope to see these changes incorporated in your next sessions. Thank you and keep up the good work ! <br> <br> Best Regards,"""
+simple3 = f"""Hello {instructorName}, <br> <br> I am sending you this email following the deep-dive done on your session that occurred on {date}. We have noticed as shown in the remarks below that you are not providing an  acceptable experience to our students and that the compliance score is low. <br> <br> <ul>{message}</ul> <br> <b style="color:red;"> Compliance score :  {score}%</b> <br> <br> Your HSM and Country Manager will reach out to you for a full review and remarks on how to run a proper session. <br> <br> Best Regards,"""
+simple4 = f"""Hello {instructorName}, <br> <br> I am sending you this email following the deep-dive done on your session that occurred on {date}. We have noticed as shown in the remarks below that you are not providing an  acceptable experience to our students and that the compliance score is low.<br> <br> <ul>{message}</ul> <br> <br> The session overall was not within our criterias and it is not considered as a valid session for the students <br> <br> <b style="color:red;"> Compliance score :  {score}% </b> <br> <br> Your HSM and Country Manager will reach out to you for a full review and remarks on how to run a proper session. <br> <br> Best Regards,"""
 
-# write output to file
-with open('output.txt', 'w') as file:
-    if int(score) == 100 : 
-        file.write(email_list)
-        file.write('\n\n')
-        file.write(object)
-        file.write('\n\n')
-        file.write(simple1)
-    elif 80 <= int(score) < 100 : 
-        file.write(email_list)
-        file.write('\n\n')
-        file.write(object)
-        file.write('\n\n')
-        file.write(simple2) 
-    elif 50 < int(score) <= 75 : 
-        file.write(email_list)
-        file.write('\n\n')
-        file.write(object)
-        file.write('\n\n')
-        file.write(simple3)
-    elif int(score) <= 50 : 
-        file.write(email_list)
-        file.write('\n\n')
-        file.write(warningObject)
-        file.write('\n\n')
-        file.write(simple4)
+# # write output to file
+# with open('output.txt', 'w') as file:
+#     if int(score) == 100 : 
+#         file.write(email_list)
+#         file.write('\n\n')
+#         file.write(object)
+#         file.write('\n\n')
+#         file.write(simple1)
+#     elif 80 <= int(score) < 100 : 
+#         file.write(email_list)
+#         file.write('\n\n')
+#         file.write(object)
+#         file.write('\n\n')
+#         file.write(simple2) 
+#     elif 50 < int(score) <= 75 : 
+#         file.write(email_list)
+#         file.write('\n\n')
+#         file.write(object)
+#         file.write('\n\n')
+#         file.write(simple3)
+#     elif int(score) <= 50 : 
+#         file.write(email_list)
+#         file.write('\n\n')
+#         file.write(warningObject)
+#         file.write('\n\n')
+#         file.write(simple4)
 
 if int(score) == 100:
     subject = object.encode('utf-8').decode('utf-8')
@@ -185,6 +185,16 @@ elif 80 <= int(score) < 100:
     body = f"""\
 {simple2}
 {signature_html}"""
+elif 50 <= int(score) < 75:
+    subject = object.encode('utf-8').decode('utf-8')
+    body = f"""\
+{simple3}
+{signature_html}"""
+elif int(score) <= 50:
+    subject = object.encode('utf-8').decode('utf-8')
+    body = f"""\
+{simple4}
+{signature_html}"""
 
 cc_s = ["kameljs2@gmail.com", "kamel.jlassi@gomycode.co"]
 
@@ -195,7 +205,7 @@ Content-Type: text/html; charset=utf-8
 Subject: {subject}
 From : {sender_email}
 To : {receiver_email}
-CC : {", ".join(cc_s)}
+CC : {", ".join(email_list)}
 
 {body}"""
 
@@ -207,4 +217,4 @@ with smtplib.SMTP(smtp_server, port) as server:
     server.starttls(context=context)
     server.ehlo()
     server.login(sender_email, password)
-    server.sendmail(sender_email, [receiver_email] + cc_s , final_email)
+    server.sendmail(sender_email, [receiver_email] + email_list , final_email)
