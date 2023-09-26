@@ -219,12 +219,12 @@ elif 80 <= int(score) < 100:
     body = f"""\
 {simple2}
 {signature_html}"""
-elif 50 <= int(score) <= 75:
+elif 55 < int(score) <= 75:
     subject = object.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple3}
 {signature_html}"""
-elif int(score) <= 50:
+elif int(score) <= 55:
     subject = warningObject.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple4}
