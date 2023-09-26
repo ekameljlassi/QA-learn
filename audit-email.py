@@ -31,6 +31,7 @@ valid_hackerspaces = [
     'casa',
     'nigeria',
     'lagos',
+    'helio',
 ]
 
 def get_country_abbreviation(country):
