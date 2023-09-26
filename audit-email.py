@@ -2,7 +2,7 @@ import smtplib, ssl
 port = 587  # For starttls
 smtp_server = "smtp.gmail.com"
 sender_email = "kamel.jlassi@gomycode.co"
-password = "MHrecordsofcnotJS.."
+password = "type password here"
 receiver_email = input("Instructor email :")
 print(receiver_email)
 
