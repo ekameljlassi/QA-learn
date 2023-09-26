@@ -37,28 +37,45 @@ def get_country_abbreviation(country):
     abbreviations = {
         'tunisia': 'TN',
         'beja' : 'TN',
-        'manzah' : 'TN',
+        'menzah' : 'TN',
         'gabes' : 'TN',
         'gafsa' : 'TN',
         'nabeul' : 'TN',
         'sfax' : 'TN',
         'sousse' : 'TN',
-        'cv' : 'TN',
+        'downtown' : 'TN',
         'lac' :'TN',
+        'tataouine' : 'TN',
+        'boumhel' : 'TN',
+        'mourouj' : 'TN',
+        'bardo' : 'TN',
+        'ghazela' : 'TN',
         'morocco': 'MA',
+        'casa' : 'MA',
+        'marrakech' : 'MA',
+        'sidi maarouf' : 'MA',
+        'tanger' : 'MA',
+        'rabat' : 'MA',
         'ivory': 'IC',
         'abidjan' : 'IC',
+        'zone4' : 'IC',
         'senegal': 'SN',
         'dakar' : 'SN',
+        'yoff' : 'SN',
         'egypt': 'EG',
         'cairo' : 'EG',
         'dokki' : 'EG',
-        'casa' : 'MA',
+        'october' : 'EG',
+        'helio' : 'EG',
         'nigeria' : 'NG',
         'lagos' : 'NG',
+        'lekki' : 'NG',
+        'ikeja' : 'NG',
+        'fastac' : 'NG',
+        'abuja' : 'NG',
     }
     return abbreviations.get(country, 'misspelled something maybe')
-default_cc = '<kamel.jlassi@gomycode.co>'
+default_cc = ['<amine@gomycode.co>' , '<yahya@gomycode.co>' , '<oussama.ourahou@gomycode.co>', '<support@gomycode.co>', '<farah.agrebi@gomycode.co>','<lengliz@gomycode.co>']
 def get_email_cc_list_physical(region): 
     cc_list = {
 
@@ -67,27 +84,44 @@ def get_email_cc_list_physical(region):
 
 def get_email_cc_list_online(region):
     cc_list = {
-        'tunisia': [default_cc, '<kameljs2@gmail.com>'],
-        'beja' : f'{default_cc} \n <rym.taboubi@gomycode.co> ',
-        'manzah' : f'{default_cc}\n <imed.fourati@gomycode.com>',
-        'gabes' : f'{default_cc}\n <imen.issaoui@gomycode.com>',
-        'gafsa' : f'{default_cc}\n <hamza.farhat@gomycode.com>',
-        'nabeul' : f'{default_cc}\n <Firas.sassi@gomycode.co>',
-        'sfax' : f'{default_cc}\n <wafa.trigui@gomycode.co>',
-        'cv' : f'{default_cc}\n <walaa.hendaoui@gomycode.com>',
-        'lac' : f'{default_cc}\n <safa.gaja@gomycode.co>',
-        'abidjan' : f'{default_cc}\n <Ivan.brovou@gomycode.co>',
-        'cairo' : f'{default_cc}\n <ibrahem.Desouky@gomycode.co>',
-        'dakar' : f'{default_cc}\n <mariekhane.bob@gomycode.co>',
-        'dokki' : f'{default_cc}\n <ibrahem.Desouky@gomycode.co>',
-        'casa' : f'{default_cc}\n <anasnasrou@gmail.com> \n <imane.houmaid@gomycode.co>',
-        'lagos' : f'{default_cc}\n <Temitayogomycode@gmail.com>',
-        'sousse' : f'{default_cc} \n <safa.kasmi@gomycode.co>',
-        'nigeria' : f'{default_cc} \n <Temitayogomycode@gmail.com> \n <funmigomycode@gmail.com>',
-        'morocco': f'{default_cc} \n  <nasrou.anas@gomycode.co> \n <imane.houmaid@gomycode.co>',
-        'ivory': f'{default_cc}\n <Ivan.brovou@gomycode.co>',
-        'egypt': f'{default_cc} \n  <reham.abdel-sayed@gomycode.co> ',        
-        'senegal' : f'{default_cc}\n <nicolas.borrel@gomycode.co> \n  <mariekhane.bob@gomycode.co>',
+        'tunisia': default_cc+ ['<khalil.boukadi@gomycode.co>'],
+        'beja' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'manzah' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'gabes' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'gafsa' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'nabeul' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'sfax' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'sousse' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'downtown' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'lac' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'tataouine' :  default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'boumhel' :  default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'mourouj' :  default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'bardo' :  default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'ghazela' :  default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'ivory': default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'abidjan' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'zone4' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'egypt': default_cc+ ['<ekamel.jlassi@gmail.com>'],   
+        'dokki' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'cairo' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'october' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'helio' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'senegal' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'dakar' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'yoff' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'morocco': default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'casa' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'marrakech': default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'sidi maarouf': default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'tanger': default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'rabat': default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'nigeria' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'lagos' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'lekki' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'ikeja' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'fastac' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
+        'abuja' : default_cc+ ['<ekamel.jlassi@gmail.com>'],
         }
     return cc_list.get(region, ['something not right'])
 
@@ -185,13 +219,13 @@ elif 80 <= int(score) < 100:
     body = f"""\
 {simple2}
 {signature_html}"""
-elif 50 <= int(score) < 75:
+elif 50 <= int(score) <= 75:
     subject = object.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple3}
 {signature_html}"""
 elif int(score) <= 50:
-    subject = object.encode('utf-8').decode('utf-8')
+    subject = warningObject.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple4}
 {signature_html}"""
