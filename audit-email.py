@@ -140,8 +140,9 @@ def get_email_cc_list_online(region):
 
 # get input from user
 answers_str = input('Audit result :')
-answers = answers_str.split('\t')
-message = ''
+answers = [answer.strip() for answer in answers_str.split('\t') if answer.strip()]
+print('answers are',answers)
+message = ''    
 while True:
     hackerspace = input('hackerspace: ')
     # Check if hackerspace is valid in cc_list
