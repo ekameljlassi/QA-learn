@@ -154,35 +154,95 @@ date = input('date :')
 score = input('score :')
 
 instructorName = input('instructor :')
-# check each question and add message for "No" answers
-if answers[0].lower() == 'no':
-    message += '<li>You did not complete the session.</li>'
 
-if answers[1].lower() == 'no':
-    message += '<li>You did not have Standup with students. </li>'
+# ask if hackerspace is online or physical
+hackerspace = input("Is the hackerspace online or physical? ")
 
-if answers[2].lower() == 'no':
-    message += '<li>You were not interactive during the session. </li>'
+# check if the hackerspace is online
+if hackerspace.lower() == 'online':
+    # add the camera question
+    if answers[0] == 'Yes, Camera was on but not during the whole session':
+        message += '<li>Yes, Camera was on but not during the whole session.</li>'
+    elif answers[0] == 'No, Camera was not on':
+        message += '<li>No, Camera was not on.</li>'
+    # shift the index of the answers for the remaining questions
+    answers = answers[1:]
 
-if answers[3].lower() == 'no':
-    message += '<li>You did not have workshop with the students. </li>'
+# add the remaining questions
+if answers[0] == 'Yes':
+    message += '<li>The instructor had Standup with students.</li>'
+elif answers[0] == 'Almost but missed a few points':
+    message += '<li>The instructor had Standup with students but missed a few points.</li>'
+elif answers[0] == 'No, they did not':
+    message += '<li>The instructor did not have Standup with students.</li>'
+else:
+    message += '<li>The answer to the camera question was not recognized.</li>'
+if answers[1] == 'Yes, he covered a full SuperSkill':
+    message += '<li>The instructor covered a full SuperSkill.</li>'
+elif answers[1] == 'He covered most of the SuperSkill':
+    message += '<li>The instructor covered most of the SuperSkill.</li>'
+elif answers[1] == 'He did not cover any SuperSkill':
+    message += '<li>The instructor did not cover any SuperSkill.</li>'
+else:
+    message += '<li>The answer to the camera question was not recognized.</li>'
 
-if answers[4].lower() == 'no':
-    message += '<li>You did not have a Q&A with the students. </li>'
 
-if answers[5].lower() == 'no':
-    message += '<li>You did not have OTO/Checkpoint with students. </li>'
+if answers[2] == 'Highly approachable and responsive':
+    message += '<li>The instructor is highly approachable and responsive.</li>'
+elif answers[2] == 'Approachable and responsive, but not consistently':
+    message += '<li>The instructor is approachable and responsive, but not consistently.</li>'
+elif answers[2] == 'Not approachable and rarely responds to inquiries':
+    message += '<li>The instructor is not approachable and rarely responds to inquiries.</li>'
+else:
+    message += '<li>The answer to the camera question was not recognized.</li>'
 
-if answers[6].lower() == 'no':
-    
-    message += '<li>You did not have Recap + Objective of next session with students. </li>'
+if answers[3] == 'Yes':
+    message += '<li>The instructor had workshops with the students.</li>'
+elif answers[3] == 'Yes, but briefly':
+    message += '<li>The instructor had workshops with the students but briefly.</li>'
+elif answers[3] == 'No, there were no workshops':
+    message += '<li>The instructor did not have workshops with the students.</li>'
+else:
+    message += '<li>The answer to the camera question was not recognized.</li>'
 
-# if answers[7].lower() == 'no':
-    
-#     message += "<li>You camera was not on. </li>"
+if answers[4] == 'Explanations are very clear and easy to understand':
+    message += '<li>The instructor\'s explanations are very clear and easy to understand.</li>'
+elif answers[4] == 'Explanations are somewhat clear but can be improved':
+    message += '<li>The instructor\'s explanations are somewhat clear but can be improved.</li>'
+elif answers[4] == 'Explanations are often unclear and difficult to follow':
+    message += '<li>The instructor\'s explanations are often unclear and difficult to follow.</li>'
 
-if answers[7].lower() == 'no':
-    message += '<li>You did not have practice box with the students. </li>'
+if answers[5] == 'Classroom time is well managed with effective icebreakers and punctuality':
+    message += '<li>Classroom time is well managed with effective icebreakers and punctuality.</li>'
+elif answers[5] == 'Classroom time is somewhat well managed, but there are areas for improvement':
+    message += '<li>Classroom time is somewhat well managed, but there are areas for improvement.</li>'
+elif answers[5] == 'Classroom time is poorly managed with no attention to icebreakers and punctuality':
+    message += '<li>Classroom time is poorly managed with no attention to icebreakers and punctuality.</li>'
+
+if answers[6] == 'Yes, regular OTO/Checkpoint check':
+    message += '<li>Yes, regular OTO/Checkpoint check.</li>'
+elif answers[6] == 'OTO/Checkpoint sessions partially checked':
+    message += '<li>OTO/Checkpoint sessions partially checked (only a few students).</li>'
+elif answers[6] == 'No OTO/Checkpoint verified':
+    message += '<li>No OTO/Checkpoint verified.</li>'
+
+if answers[7] == 'Yes, at the end of the session':
+    message += '<li>Yes, at the end of the session.</li>'
+elif answers[7] == 'Briefly had Recaps and Objectives':
+    message += '<li>Briefly had Recaps and Objectives.</li>'
+elif answers[7] == 'Didn’t had Recaps and Objectives':
+    message += '<li>Didn’t have Recaps and Objectives.</li>'
+
+
+if answers[8] == 'Yes, consistently':
+    message += '<li>Real-world examples and practical exercises were included in the session consistently.</li>'
+elif answers[8] == 'Yes, but briefly':
+    message += '<li>Real-world examples and practical exercises were included in the session but briefly.</li>'
+elif answers[8] == 'No, they did not include anyone':
+    message += '<li>No real-world examples and practical exercises were included in the session.</li>'
+else:
+    message += '<li>The answer to the camera question was not recognized.</li>'
+
 
 # create email
 HS = get_country_abbreviation(hackerspace)
