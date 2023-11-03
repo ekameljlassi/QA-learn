@@ -18,7 +18,7 @@ valid_hackerspaces = [
     'nabeul',
     'sfax',
     'sousse',
-    'cv',
+    'downtown',
     'lac',
     'morocco',
     'ivory',
@@ -32,13 +32,25 @@ valid_hackerspaces = [
     'nigeria',
     'lagos',
     'helio',
+    'bardo',
+    'lekki',
+    'october',
+    'ikeja',
+    'abuja',
+    'tataouine',
+    'rabat',
+    'festac',
+    'mourouj',
+    'boumhel',
+    'marrakech',
+    'sidi maarouf'
 ]
 
 def get_country_abbreviation(country):
     abbreviations = {
         'tunisia': 'TN',
         'beja' : 'TN',
-        'menzah' : 'TN',
+        'manzah' : 'TN',
         'gabes' : 'TN',
         'gafsa' : 'TN',
         'nabeul' : 'TN',
@@ -75,7 +87,7 @@ def get_country_abbreviation(country):
         'festac' : 'NG',
         'abuja' : 'NG',
     }
-    return abbreviations.get(country, 'misspelled something maybe')
+    return abbreviations.get(country, ' ')
 default_cc = ['<amine@gomycode.co>' , '<yahya@gomycode.co>' , '<oussama.ourahou@gomycode.co>', '<support@gomycode.co>', '<farah.agrebi@gomycode.co>','<lengliz@gomycode.co>']
 def get_email_cc_list_physical(region): 
     cc_list = {
@@ -103,16 +115,16 @@ def get_email_cc_list_online(region):
         'ivory': default_cc+ ['<assohounhonorejeanmichel.soumayin@gomycode.co>'],
         'abidjan' : default_cc+ ['<motibieandrea.bah@gomycode.co>'],
         'zone4' : default_cc+ ['<assohounhonorejeanmichel.soumayin@gomycode.co>'],
-        'egypt': default_cc+ ['<reham.abdel-sayed@gomycode.co>'],   
-        'dokki' : default_cc+ ['<ahmed.karram@gomycode.co>'],
-        'cairo' : default_cc+ ['<fayroz.mohamed@gomycode.co>'],
-        'october' : default_cc+ ['<ahmed.karram@gomycode.co>'],
-        'helio' : default_cc+ ['<fayroz.mohamed@gomycode.co>'],
+        'egypt': default_cc+ ['<abddelrahman.elsayed@gomycode.co>'],   
+        'dokki' : default_cc+ ['<abddelrahman.elsayed@gomycode.co>'],
+        'cairo' : default_cc+ ['<asma.ahmed@gomycode.co>'],
+        'october' : default_cc+ ['<haneen.gasser@gomycode.co>'],
+        'helio' : default_cc+ ['<nourhan.ali@gomycode.co>'],
         'senegal' : default_cc+ ['<alainnandy.coly@gomycode.co>'],
         'dakar' : default_cc+ ['<mariekhane.bob@gomycode.co>'],
         'yoff' : default_cc+ ['<papaahmet.diop@gomycode.co>'],
-        'morocco': default_cc+ ['<youness.elamri@gomycode.co>'],
-        'casa' : default_cc+ ['<youness.elamri@gomycode.co>'],
+        'morocco': default_cc+ ['<ghita.elidrissi@gomycode.co>'],
+        'casa' : default_cc+ ['<ayoub.chakir@gomycode.co>'],
         'marrakech': default_cc+ ['<nassima.idbihi@gomycode.co>'],
         'sidi maarouf': default_cc+ ['<yousra.nadi@gomycode.co>'],
         'tanger': default_cc+ ['<yasmine.zerhouni@gomycode.co>'],
@@ -164,19 +176,19 @@ if answers[6].lower() == 'no':
     
     message += '<li>You did not have Recap + Objective of next session with students. </li>'
 
-if answers[7].lower() == 'no':
+# if answers[7].lower() == 'no':
     
-    message += "<li>You camera was not on. </li>"
+#     message += "<li>You camera was not on. </li>"
 
-if answers[8].lower() == 'no':
+if answers[7].lower() == 'no':
     message += '<li>You did not have practice box with the students. </li>'
 
 # create email
 HS = get_country_abbreviation(hackerspace)
 email_list = get_email_cc_list_online(hackerspace)
-object = f'Online Learning Experience QA - {HS} - {instructorName}'
-objectPhysical = f'Online Learning Experience QA - {HS} - {instructorName}'
-warningObject = f'WARNING - Online Learning Experience QA - {HS} - {instructorName}'
+object = f'Physical Learning Experience QA - {HS} - {instructorName}'
+objectPhysical = f'Physical Learning Experience QA - {HS} - {instructorName}'
+warningObject = f'WARNING - Physical Learning Experience QA - {HS} - {instructorName}'
 
 simple1 = f"""Hello {instructorName}, <br> <br> I am sending you this email following the deep-dive done on your session that occurred on {date}. Overall the session went really well and you are applying all the processes and expected session flow. Congratulations on that. Very much appreciated. <br> <br> <b style="color:#38761D"> Compliance score :  {score}% </b> <br> <br> Best Regards,"""
 simple2 = f"""Hello {instructorName}, <br> <br> We would like to congratulate you for the hard work you have shown during your last training session. Following a deep dive into your session that took place on {date} and it was overall good. You’ll find below the comments or issues we bring your attention to:<br> <ul>{message}</ul> <br> <b style="color:#38761D;"> Compliance score :  {score}% </b> <br> <br> We hope to see these changes incorporated in your next sessions. Thank you and keep up the good work ! <br> <br> Best Regards,"""
