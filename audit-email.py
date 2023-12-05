@@ -1,3 +1,5 @@
+import webbrowser
+import tempfile
 import smtplib, ssl
 port = 587  # For starttls
 smtp_server = "smtp.gmail.com"
