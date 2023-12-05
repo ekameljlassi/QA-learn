@@ -243,23 +243,23 @@ if int(score) == 100:
     body = f"""\
 {simple1}
 {signature_html}"""
-elif 80 <= int(score) < 100:
+elif 70 <= int(score) < 100:
     subject = object.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple2}
 {signature_html}"""
-elif 55 < int(score) <= 75:
+elif 40 < int(score) <= 65:
     subject = object.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple3}
 {signature_html}"""
-elif int(score) <= 55:
+elif int(score) <= 40:
     subject = warningObject.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple4}
 {signature_html}"""
 
-cc_s = ["kameljs2@gmail.com", "kamel.jlassi@gomycode.co"]
+cc_test = ["kameljs2@gmail.com", "kamel.jlassi@gomycode.co"]
 
 
 # Construct the final email content
