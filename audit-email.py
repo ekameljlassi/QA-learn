@@ -279,3 +279,20 @@ with tempfile.NamedTemporaryFile('w', delete=False, suffix='.html') as f:
 
 # Open the temporary file in the web browser
 webbrowser.open(url)
+
+# Ask for confirmation
+confirmation = input("Proceed to send? (yes/no): ")
+
+if confirmation.lower() == 'yes':
+    final_email = final_email.encode('utf-8')
+    context = ssl.create_default_context()
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.ehlo()
+        server.starttls(context=context)
+        server.ehlo()
+        server.login(sender_email, password)
+        server.sendmail(sender_email, [receiver_email] + email_list, final_email)
+    print("Email sent!")
+else:
+    print("Email not sent. Restarting the script...")
+    # Here you can call the function or script to restart the process
