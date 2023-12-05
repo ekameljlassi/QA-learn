@@ -272,12 +272,10 @@ CC : {", ".join(email_list)}
 
 {body}"""
 
-final_email = final_email.encode('utf-8')
+# Write the HTML content to a temporary file
+with tempfile.NamedTemporaryFile('w', delete=False, suffix='.html') as f:
+    url = 'file://' + f.name
+    f.write(final_email)
 
-context = ssl.create_default_context()
-with smtplib.SMTP(smtp_server, port) as server:
-    server.ehlo()
-    server.starttls(context=context)
-    server.ehlo()
-    server.login(sender_email, password)
-    server.sendmail(sender_email, [receiver_email] + email_list , final_email)
+# Open the temporary file in the web browser
+webbrowser.open(url)
