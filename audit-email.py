@@ -1,3 +1,5 @@
+import webbrowser
+import tempfile
 import smtplib, ssl
 port = 587  # For starttls
 smtp_server = "smtp.gmail.com"
@@ -18,7 +20,7 @@ valid_hackerspaces = [
     'nabeul',
     'sfax',
     'sousse',
-    'cv',
+    'downtown',
     'lac',
     'morocco',
     'ivory',
@@ -32,13 +34,25 @@ valid_hackerspaces = [
     'nigeria',
     'lagos',
     'helio',
+    'bardo',
+    'lekki',
+    'october',
+    'ikeja',
+    'abuja',
+    'tataouine',
+    'rabat',
+    'festac',
+    'mourouj',
+    'boumhel',
+    'marrakech',
+    'sidi maarouf'
 ]
 
 def get_country_abbreviation(country):
     abbreviations = {
         'tunisia': 'TN',
         'beja' : 'TN',
-        'menzah' : 'TN',
+        'manzah' : 'TN',
         'gabes' : 'TN',
         'gafsa' : 'TN',
         'nabeul' : 'TN',
@@ -75,7 +89,7 @@ def get_country_abbreviation(country):
         'festac' : 'NG',
         'abuja' : 'NG',
     }
-    return abbreviations.get(country, 'misspelled something maybe')
+    return abbreviations.get(country, ' ')
 default_cc = ['<amine@gomycode.co>' , '<yahya@gomycode.co>' , '<oussama.ourahou@gomycode.co>', '<support@gomycode.co>', '<farah.agrebi@gomycode.co>','<lengliz@gomycode.co>']
 def get_email_cc_list_physical(region): 
     cc_list = {
@@ -103,16 +117,16 @@ def get_email_cc_list_online(region):
         'ivory': default_cc+ ['<assohounhonorejeanmichel.soumayin@gomycode.co>'],
         'abidjan' : default_cc+ ['<motibieandrea.bah@gomycode.co>'],
         'zone4' : default_cc+ ['<assohounhonorejeanmichel.soumayin@gomycode.co>'],
-        'egypt': default_cc+ ['<reham.abdel-sayed@gomycode.co>'],   
-        'dokki' : default_cc+ ['<ahmed.karram@gomycode.co>'],
-        'cairo' : default_cc+ ['<fayroz.mohamed@gomycode.co>'],
-        'october' : default_cc+ ['<ahmed.karram@gomycode.co>'],
-        'helio' : default_cc+ ['<fayroz.mohamed@gomycode.co>'],
+        'egypt': default_cc+ ['<abddelrahman.elsayed@gomycode.co>'],   
+        'dokki' : default_cc+ ['<abddelrahman.elsayed@gomycode.co>'],
+        'cairo' : default_cc+ ['<asma.ahmed@gomycode.co>'],
+        'october' : default_cc+ ['<haneen.gasser@gomycode.co>'],
+        'helio' : default_cc+ ['<nourhan.ali@gomycode.co>'],
         'senegal' : default_cc+ ['<alainnandy.coly@gomycode.co>'],
         'dakar' : default_cc+ ['<mariekhane.bob@gomycode.co>'],
         'yoff' : default_cc+ ['<papaahmet.diop@gomycode.co>'],
-        'morocco': default_cc+ ['<youness.elamri@gomycode.co>'],
-        'casa' : default_cc+ ['<youness.elamri@gomycode.co>'],
+        'morocco': default_cc+ ['<ghita.elidrissi@gomycode.co>'],
+        'casa' : default_cc+ ['<ayoub.chakir@gomycode.co>'],
         'marrakech': default_cc+ ['<nassima.idbihi@gomycode.co>'],
         'sidi maarouf': default_cc+ ['<yousra.nadi@gomycode.co>'],
         'tanger': default_cc+ ['<yasmine.zerhouni@gomycode.co>'],
@@ -128,8 +142,9 @@ def get_email_cc_list_online(region):
 
 # get input from user
 answers_str = input('Audit result :')
-answers = answers_str.split('\t')
-message = ''
+answers = [answer.strip() for answer in answers_str.split('\t') if answer.strip()]
+print('answers are',answers)
+message = ''    
 while True:
     hackerspace = input('hackerspace: ')
     # Check if hackerspace is valid in cc_list
@@ -141,97 +156,112 @@ date = input('date :')
 score = input('score :')
 
 instructorName = input('instructor :')
-# check each question and add message for "No" answers
-if answers[0].lower() == 'no':
-    message += '<li>You did not complete the session.</li>'
 
-if answers[1].lower() == 'no':
-    message += '<li>You did not have Standup with students. </li>'
+# ask if hackerspace is online or physical
+hackerspace_type = input("Is the hackerspace online or physical? ")
 
-if answers[2].lower() == 'no':
-    message += '<li>You were not interactive during the session. </li>'
+# check if the hackerspace is online
+if hackerspace_type.lower() == 'online':
+    # add the camera question
+    if answers[0] == 'Yes, Camera was on but not during the whole session':
+        message += '<li>Your camera was on but not during the whole session.</li>'
+    elif answers[0] == 'No, Camera was not on':
+        message += '<li>Your camera was not on during the session.</li>'
+    # shift the index of the answers for the remaining questions
+    answers = answers[1:]
 
-if answers[3].lower() == 'no':
-    message += '<li>You did not have workshop with the students. </li>'
+# add the remaining questions
+if answers[0] == 'Almost but missed a few points':
+    message += '<li>You had Standup with students but missed a few points.</li>'
+elif answers[0] == 'No, they did not':
+    message += '<li>You did not have Standup with students.</li>'
+else:
+    print("answer is nto identfied")
+if answers[1] == 'He covered most of the SuperSkill':
+    message += '<li>You partially covered a SuperSkill.</li>'
+elif answers[1] == 'He did not cover any SuperSkill':
+    message += '<li>You did not cover any SuperSkill.</li>'
+else:
+    print("answer for superskill is not indetified")
 
-if answers[4].lower() == 'no':
-    message += '<li>You did not have a Q&A with the students. </li>'
+if answers[2] == 'Approachable and responsive, but not consistently':
+    message += '<li>You are approachable and responsive, but not consistently.</li>'
+elif answers[2] == 'Not approachable and rarely responds to inquiries':
+    message += '<li>You rarely responds to inquiries.</li>'
+else:
+    print("answer for instructor responsive and approcachable is not identified")
 
-if answers[5].lower() == 'no':
-    message += '<li>You did not have OTO/Checkpoint with students. </li>'
+if answers[3] == 'Yes, but briefly':
+    message += '<li>You had workshops with the students but briefly.</li>'
+elif answers[3] == 'No, there were no workshops':
+    message += '<li>You did not have workshops with the students.</li>'
+else:
+    print('answer for workshop is not indentified')
 
-if answers[6].lower() == 'no':
-    
-    message += '<li>You did not have Recap + Objective of next session with students. </li>'
+if answers[4] == 'Explanations are somewhat clear but can be improved':
+    message += '<li>Your explanations are somewhat clear but can be improved.</li>'
+elif answers[4] == 'Explanations are often unclear and difficult to follow':
+    message += '<li>Ypur explanations are often unclear and difficult to follow.</li>'
 
-if answers[7].lower() == 'no':
-    
-    message += "<li>You camera was not on. </li>"
+if answers[5] == 'Classroom time is somewhat well managed, but there are areas for improvement':
+    message += '<li>Classroom time is somewhat well managed, but there are areas for improvement.</li>'
+elif answers[5] == 'Classroom time is poorly managed with no attention to icebreakers and punctuality':
+    message += '<li>Classroom time is poorly managed with no attention to icebreakers and punctuality.</li>'
 
-if answers[8].lower() == 'no':
-    message += '<li>You did not have practice box with the students. </li>'
+if answers[6] == 'OTO/Checkpoint sessions partially checked':
+    message += '<li>you partially checked OTO/Checkpoint.</li>'
+elif answers[6] == 'No OTO/Checkpoint verified':
+    message += '<li>You did not check OTO/Checkpoint for the students.</li>'
+
+if answers[7] == 'Briefly had Recaps and Objectives':
+    message += '<li>You briefly had Recaps and Objectives for the next session.</li>'
+elif answers[7] == 'Didn’t had Recaps and Objectives':
+    message += '<li>You didn’t have Recaps and Objectives for the next session.</li>'
+
+if answers[8] == 'Yes, but briefly':
+    message += '<li>Real-world examples and practical exercises were included in the session but briefly.</li>'
+elif answers[8] == 'No, they did not include anyone':
+    message += '<li>No real-world examples and practical exercises were included in the session.</li>'
+else:
+    print('answer for real world example is indefined')
+
 
 # create email
 HS = get_country_abbreviation(hackerspace)
 email_list = get_email_cc_list_online(hackerspace)
-object = f'Online Learning Experience QA - {HS} - {instructorName}'
-objectPhysical = f'Online Learning Experience QA - {HS} - {instructorName}'
-warningObject = f'WARNING - Online Learning Experience QA - {HS} - {instructorName}'
+object = f'GOMYCODE Learning Experience QA - {HS} - {instructorName}'
+objectPhysical = f'GOMYCODE Learning Experience QA - {HS} - {instructorName}'
+warningObject = f'WARNING - GOMYCODE Learning Experience QA - {HS} - {instructorName}'
 
 simple1 = f"""Hello {instructorName}, <br> <br> I am sending you this email following the deep-dive done on your session that occurred on {date}. Overall the session went really well and you are applying all the processes and expected session flow. Congratulations on that. Very much appreciated. <br> <br> <b style="color:#38761D"> Compliance score :  {score}% </b> <br> <br> Best Regards,"""
 simple2 = f"""Hello {instructorName}, <br> <br> We would like to congratulate you for the hard work you have shown during your last training session. Following a deep dive into your session that took place on {date} and it was overall good. You’ll find below the comments or issues we bring your attention to:<br> <ul>{message}</ul> <br> <b style="color:#38761D;"> Compliance score :  {score}% </b> <br> <br> We hope to see these changes incorporated in your next sessions. Thank you and keep up the good work ! <br> <br> Best Regards,"""
 simple3 = f"""Hello {instructorName}, <br> <br> I am sending you this email following the deep-dive done on your session that occurred on {date}. We have noticed as shown in the remarks below that you are not providing an  acceptable experience to our students and that the compliance score is low. <br> <br> <ul>{message}</ul> <br> <b style="color:#E69138;"> Compliance score :  {score}%</b> <br> <br> Your HSM and Country Manager will reach out to you for a full review and remarks on how to run a proper session. <br> <br> Best Regards,"""
 simple4 = f"""Hello {instructorName}, <br> <br> I am sending you this email following the deep-dive done on your session that occurred on {date}. We have noticed as shown in the remarks below that you are not providing an  acceptable experience to our students and that the compliance score is low.<br> <br> <ul>{message}</ul> <br> <br> The session overall was not within our criterias and it is not considered as a valid session for the students <br> <br> <b style="color:#CC0000;"> Compliance score :  {score}% </b> <br> <br> Your HSM and Country Manager will reach out to you for a full review and remarks on how to run a proper session. <br> <br> Best Regards,"""
 
-# # write output to file
-# with open('output.txt', 'w') as file:
-#     if int(score) == 100 : 
-#         file.write(email_list)
-#         file.write('\n\n')
-#         file.write(object)
-#         file.write('\n\n')
-#         file.write(simple1)
-#     elif 80 <= int(score) < 100 : 
-#         file.write(email_list)
-#         file.write('\n\n')
-#         file.write(object)
-#         file.write('\n\n')
-#         file.write(simple2) 
-#     elif 50 < int(score) <= 75 : 
-#         file.write(email_list)
-#         file.write('\n\n')
-#         file.write(object)
-#         file.write('\n\n')
-#         file.write(simple3)
-#     elif int(score) <= 50 : 
-#         file.write(email_list)
-#         file.write('\n\n')
-#         file.write(warningObject)
-#         file.write('\n\n')
-#         file.write(simple4)
+
 
 if int(score) == 100:
     subject = object.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple1}
 {signature_html}"""
-elif 80 <= int(score) < 100:
+elif 70 <= int(score) < 100:
     subject = object.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple2}
 {signature_html}"""
-elif 55 < int(score) <= 75:
+elif 40 < int(score) <= 65:
     subject = object.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple3}
 {signature_html}"""
-elif int(score) <= 55:
+elif int(score) <= 40:
     subject = warningObject.encode('utf-8').decode('utf-8')
     body = f"""\
 {simple4}
 {signature_html}"""
 
-cc_s = ["kameljs2@gmail.com", "kamel.jlassi@gomycode.co"]
+cc_test = ["kameljs2@gmail.com", "kamel.jlassi@gomycode.co"]
 
 
 # Construct the final email content
@@ -244,12 +274,27 @@ CC : {", ".join(email_list)}
 
 {body}"""
 
-final_email = final_email.encode('utf-8')
+# Write the HTML content to a temporary file
+with tempfile.NamedTemporaryFile('w', delete=False, suffix='.html') as f:
+    url = 'file://' + f.name
+    f.write(final_email)
 
-context = ssl.create_default_context()
-with smtplib.SMTP(smtp_server, port) as server:
-    server.ehlo()
-    server.starttls(context=context)
-    server.ehlo()
-    server.login(sender_email, password)
-    server.sendmail(sender_email, [receiver_email] + email_list , final_email)
+# Open the temporary file in the web browser
+webbrowser.open(url)
+
+# Ask for confirmation
+confirmation = input("Proceed to send? (yes/no): ")
+
+if confirmation.lower() == 'yes':
+    final_email = final_email.encode('utf-8')
+    context = ssl.create_default_context()
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.ehlo()
+        server.starttls(context=context)
+        server.ehlo()
+        server.login(sender_email, password)
+        server.sendmail(sender_email, [receiver_email] + email_list, final_email)
+    print("Email sent!")
+else:
+    print("Email not sent. Restarting the script...")
+    # Here you can call the function or script to restart the process
