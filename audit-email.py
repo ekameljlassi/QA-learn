@@ -227,9 +227,9 @@ else:
 # create email
 HS = get_country_abbreviation(hackerspace)
 email_list = get_email_cc_list_online(hackerspace)
-object = f'Physical Learning Experience QA - {HS} - {instructorName}'
-objectPhysical = f'Physical Learning Experience QA - {HS} - {instructorName}'
-warningObject = f'WARNING - Physical Learning Experience QA - {HS} - {instructorName}'
+object = f'GOMYCODE Learning Experience QA - {HS} - {instructorName}'
+objectPhysical = f'GOMYCODE Learning Experience QA - {HS} - {instructorName}'
+warningObject = f'WARNING - GOMYCODE Learning Experience QA - {HS} - {instructorName}'
 
 simple1 = f"""Hello {instructorName}, <br> <br> I am sending you this email following the deep-dive done on your session that occurred on {date}. Overall the session went really well and you are applying all the processes and expected session flow. Congratulations on that. Very much appreciated. <br> <br> <b style="color:#38761D"> Compliance score :  {score}% </b> <br> <br> Best Regards,"""
 simple2 = f"""Hello {instructorName}, <br> <br> We would like to congratulate you for the hard work you have shown during your last training session. Following a deep dive into your session that took place on {date} and it was overall good. You’ll find below the comments or issues we bring your attention to:<br> <ul>{message}</ul> <br> <b style="color:#38761D;"> Compliance score :  {score}% </b> <br> <br> We hope to see these changes incorporated in your next sessions. Thank you and keep up the good work ! <br> <br> Best Regards,"""
