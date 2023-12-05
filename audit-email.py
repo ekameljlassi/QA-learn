@@ -236,32 +236,7 @@ simple2 = f"""Hello {instructorName}, <br> <br> We would like to congratulate yo
 simple3 = f"""Hello {instructorName}, <br> <br> I am sending you this email following the deep-dive done on your session that occurred on {date}. We have noticed as shown in the remarks below that you are not providing an  acceptable experience to our students and that the compliance score is low. <br> <br> <ul>{message}</ul> <br> <b style="color:#E69138;"> Compliance score :  {score}%</b> <br> <br> Your HSM and Country Manager will reach out to you for a full review and remarks on how to run a proper session. <br> <br> Best Regards,"""
 simple4 = f"""Hello {instructorName}, <br> <br> I am sending you this email following the deep-dive done on your session that occurred on {date}. We have noticed as shown in the remarks below that you are not providing an  acceptable experience to our students and that the compliance score is low.<br> <br> <ul>{message}</ul> <br> <br> The session overall was not within our criterias and it is not considered as a valid session for the students <br> <br> <b style="color:#CC0000;"> Compliance score :  {score}% </b> <br> <br> Your HSM and Country Manager will reach out to you for a full review and remarks on how to run a proper session. <br> <br> Best Regards,"""
 
-# # write output to file
-# with open('output.txt', 'w') as file:
-#     if int(score) == 100 : 
-#         file.write(email_list)
-#         file.write('\n\n')
-#         file.write(object)
-#         file.write('\n\n')
-#         file.write(simple1)
-#     elif 80 <= int(score) < 100 : 
-#         file.write(email_list)
-#         file.write('\n\n')
-#         file.write(object)
-#         file.write('\n\n')
-#         file.write(simple2) 
-#     elif 50 < int(score) <= 75 : 
-#         file.write(email_list)
-#         file.write('\n\n')
-#         file.write(object)
-#         file.write('\n\n')
-#         file.write(simple3)
-#     elif int(score) <= 50 : 
-#         file.write(email_list)
-#         file.write('\n\n')
-#         file.write(warningObject)
-#         file.write('\n\n')
-#         file.write(simple4)
+
 
 if int(score) == 100:
     subject = object.encode('utf-8').decode('utf-8')
